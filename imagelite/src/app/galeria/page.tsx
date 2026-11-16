@@ -16,6 +16,12 @@ export default function GaleriaPage() {
     console.table(images)
   }
 
+  function renderImageCard(image: Image) {
+    return (
+      <ImageCard nome={image.name} tamanho={image.size} dataUpload={image.uploadDate} src={image.url}/>
+    )
+  }
+
   return (
     <Template>
       <div className='border-4'>
@@ -23,7 +29,9 @@ export default function GaleriaPage() {
       </div>
       <section className='grid grid-cols-4 gap-8'>
 
-        <ImageCard nome='' tamanho='46' dataUpload='01/11/1980' src=''/>
+        {
+          images.map(renderImageCard)
+        }
 
       </section>
     </Template>
