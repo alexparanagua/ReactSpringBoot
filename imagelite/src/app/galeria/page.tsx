@@ -32,11 +32,9 @@ export default function GaleriaPage() {
         <button className='bg-gray-500' onClick={searchImage}>Mudar Imagem</button>
       </div>
       <section className='grid grid-cols-4 gap-8'>
-
         {
           renderImageCards()
         }
-
       </section>
     </Template>
   )
