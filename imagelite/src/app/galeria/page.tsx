@@ -9,16 +9,18 @@ export default function GaleriaPage() {
 
   const useService = useImageService();
   const [images, setImages] = useState<Image[]>([])
+  const [query, setQuery] = useState<string>('')
+  const [extension, setExtesion] = useState<string>('')
 
   async function searchImage(){
-    const result = await useService.buscar();
+    console.log('>>> Valor digitado: ',query)
+    const result = await useService.buscar(query, extension);
     setImages(result);
-    console.table(images)
   }
 
   function renderImageCard(image: Image) {
     return (
-      <ImageCard nome={image.name} tamanho={image.size} dataUpload={image.uploadDate} src={image.url}/>
+      <ImageCard key={image.url} nome={image.name} tamanho={image.size} dataUpload={image.uploadDate} src={image.url}/>
     )
   }
 
@@ -30,9 +32,12 @@ export default function GaleriaPage() {
     <Template>
       <section className='flex flex-col items-center justify-center my-5'>
         <div className='flex space-x-4'>
-          <input type='text' className='border px-5 py-2 rounded-lg text-gray-900'/>
-          <select className='border px-4 py-2 rounded-lg text-gray-900'>
-            <option>All Formats</option>
+          <input type='text' className='border px-5 py-2 rounded-lg text-gray-900' onChange={event => setQuery(event.target.value)}/>
+          <select className='border px-4 py-2 rounded-lg text-gray-900' onChange={event => setExtesion(event.target.value)}>
+            <option value="">All Formats</option>
+            <option value="PNG">.png</option>
+            <option value="GIF">.gif</option>
+            <option value="JPEG">.jpeg</option>
           </select>
           <button className='bg-blue-800 text-white px-4 py-2 rounded-lg border' onClick={searchImage}>Search</button>
           <button className='bg-blue-600 text-white px-4 py-2 rounded-lg border'>Add New</button>
