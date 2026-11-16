@@ -22,6 +22,10 @@ export default function GaleriaPage() {
     )
   }
 
+  function renderImageCards() {
+    return images.map(renderImageCard)
+  }
+
   return (
     <Template>
       <div className='border-4'>
@@ -30,7 +34,7 @@ export default function GaleriaPage() {
       <section className='grid grid-cols-4 gap-8'>
 
         {
-          images.map(renderImageCard)
+          renderImageCards()
         }
 
       </section>
