@@ -21,6 +21,7 @@ import java.util.List;
 @RequestMapping("/v1/images")
 @Slf4j
 @RequiredArgsConstructor
+@CrossOrigin("*")
 public class ImageController {
 
     private final ImageService service;
