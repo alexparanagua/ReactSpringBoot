@@ -7,6 +7,10 @@ interface ImageCardProps {
 
 
 export const ImageCard: React.FC<ImageCardProps> = (props: ImageCardProps) => {
+    function download(){
+        window.open(props.src,'_blank')
+    }
+    
     return (
         <div className="card relative bg-white rounded-md shadow-md transition-transform ease-in duration-300 transform hover:shadow-lg hover:-translate-y-2">
             <img src={props.src} className="h-56 w-full object-cover rounded-t-md" alt=""/>
@@ -14,6 +18,7 @@ export const ImageCard: React.FC<ImageCardProps> = (props: ImageCardProps) => {
                 <h5 className="text-xl font-semibold mb-2 text-gray-600">{props.nome}</h5>
                 <p className="text-gray-600">{props.tamanho}</p>
                 <p className="text-gray-600">{props.dataUpload}</p>
+                <p><button className="border px-2 bg-gray-300" onClick={download}>Download</button></p>
             </div>
         </div>
     )
