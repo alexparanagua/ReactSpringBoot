@@ -11,16 +11,18 @@ export default function GaleriaPage() {
   const [images, setImages] = useState<Image[]>([])
   const [query, setQuery] = useState<string>('')
   const [extension, setExtesion] = useState<string>('')
+  const [loading, setLoading] = useState<boolean>(false)
 
   async function searchImage(){
-    console.log('>>> Valor digitado: ',query)
+    setLoading(true)
     const result = await useService.buscar(query, extension);
     setImages(result);
+    setLoading(false)
   }
 
   function renderImageCard(image: Image) {
     return (
-      <ImageCard key={image.url} nome={image.name} tamanho={image.size} dataUpload={image.uploadDate} src={image.url}/>
+      <ImageCard key={image.url} nome={image.name} tamanho={image.size} dataUpload={image.uploadDate} src={image.url} extension={image.extension}/>
     )
   }
 
@@ -29,7 +31,7 @@ export default function GaleriaPage() {
   }
 
   return (
-    <Template>
+    <Template loading={loading}>
       <section className='flex flex-col items-center justify-center my-5'>
         <div className='flex space-x-4'>
           <input type='text' className='border px-5 py-2 rounded-lg text-gray-900' onChange={event => setQuery(event.target.value)}/>
@@ -39,8 +41,8 @@ export default function GaleriaPage() {
             <option value="GIF">.gif</option>
             <option value="JPEG">.jpeg</option>
           </select>
-          <button className='bg-blue-800 text-white px-4 py-2 rounded-lg border' onClick={searchImage}>Search</button>
-          <button className='bg-blue-600 text-white px-4 py-2 rounded-lg border'>Add New</button>
+          <button className='bg-blue-800 text-white px-4 py-2 rounded-lg border hover:bg-gray-800' onClick={searchImage}>Search</button>
+          <button className='bg-blue-600 text-white px-4 py-2 rounded-lg border hover:bg-gray-600'>Add New</button>
         </div>
       </section>
       <section className='grid grid-cols-4 gap-8'>

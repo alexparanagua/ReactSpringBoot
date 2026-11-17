@@ -1,5 +1,6 @@
 interface TemplateProps {
   children: React.ReactNode;
+  loading?:boolean;
 }
 
 export const Template: React.FC<TemplateProps> = (props: TemplateProps) => {
@@ -7,7 +8,8 @@ export const Template: React.FC<TemplateProps> = (props: TemplateProps) => {
     <>
         <Header />
         <div className="container mx-auto mt-8 px-4 text-black">
-            {props.children}
+            {props.loading && <div className="bg-amber-200">...Carregando</div>}
+            {!props.loading && props.children}
         </div>
         <Footer/>
 
