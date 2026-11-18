@@ -45,7 +45,7 @@ export default function GaleriaPage() {
     <Template loading={loading}>
       <section className='flex flex-col items-center justify-center my-5'>
         <div className='flex space-x-4'>
-          <Input value={query} change={event => setQuery(event.target.value)}/>
+          <Input value={query} onChange={event => setQuery(event.target.value)} placeholder='Ditige nome ou tag'/>
           <Select options={formatOptions} value={extension} change={event => setExtesion(event.target.value)}/>
           <Button label='Search' onClick={searchImage} color='bg-blue-800'/>
           <Button label='Limpar' onClick={()=> {setQuery(''); setExtesion('')}} color='bg-blue-600'/>
