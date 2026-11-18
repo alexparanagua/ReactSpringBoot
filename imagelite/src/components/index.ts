@@ -1,5 +1,5 @@
-export { Template } from './Template'
+export { Template, RenderIf } from './Template'
 export { ImageCard } from './ImageCard'
 export { Button } from './button'
 export { Input } from './input'
-export { Select, SelectOption } from './select'
+export { Select, type SelectOption } from './select'

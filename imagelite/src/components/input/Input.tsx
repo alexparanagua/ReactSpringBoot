@@ -3,8 +3,9 @@ import React from "react";
 interface InputProps {
     value?: string;
     style?: string;
-    onChange: (event:React.ChangeEvent<HTMLInputElement>) => void
+    onChange?: (event:React.ChangeEvent<HTMLInputElement>) => void
     placeholder?: string;
+    id?: string;
 }
 
 export const Input: React.FC <InputProps> = ({value, style, ...etc}: InputProps) => {
