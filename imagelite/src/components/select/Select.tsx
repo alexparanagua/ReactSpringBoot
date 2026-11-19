@@ -15,7 +15,7 @@ export const Select: React.FC <SelectProps> = ({value, options, change}: SelectP
     return (
         <select className='border px-4 py-2 rounded-lg text-gray-900' value={value} onChange={change}>
             {options.map((option) => (
-                <option value={option.value}>{option.label}</option>
+                <option key={option.value} value={option.value}>{option.label}</option>
             ))}
         </select>
     )

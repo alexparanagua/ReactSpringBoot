@@ -35,3 +35,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 #dependencies
 npm install --save formik@2.4.5 yup@1.2.0
+npm install --save react-toastify@9.1.3

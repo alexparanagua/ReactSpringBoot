@@ -1,5 +1,5 @@
 'use client'
-import {Button, Input, Template, RenderIf} from '@/components'
+import {Button, Input, Template, RenderIf, useNotification} from '@/components'
 import Link from 'next/link'
 import { useFormik } from 'formik'
 import React, { useState } from 'react';
@@ -12,11 +12,14 @@ interface FormProps {
 }
 
 const formScheme: FormProps = {name: '', tags: '', file: ''}
+const notification = useNotification();
 
 export default function FormularioPage() {
 
     const [imagePreview, setImagePreview] = useState<string>();
     const service = useImageService();
+    const [loading, setLoading] = useState<boolean>(false)
+
 
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
@@ -27,6 +30,7 @@ export default function FormularioPage() {
     })
 
     async function handleSubmit(dados: FormProps) {
+        setLoading(true);
         const formData = new FormData();
         formData.append("file",dados.file)
         formData.append("name",dados.name)
@@ -34,7 +38,9 @@ export default function FormularioPage() {
         
         await service.salvar(formData);
         formik.resetForm();
+        notification.notify('Upload sent sucessfully!','success')
         setImagePreview('');
+        setLoading(false);
     }
 
     function onFileUpload(event : React.ChangeEvent<HTMLInputElement>) {
@@ -47,17 +53,17 @@ export default function FormularioPage() {
     }
 
     return (
-        <Template>
+        <Template loading={loading}>
             <section className='flex flex-col items-center justify-center my-5  text-gray-700'>
                 <h5 className='mt-3 mb-10 text-3xl font-extrabold tracking-tighter'>Nova Imagem</h5>
                 <form onSubmit={formik.handleSubmit}>
                     <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Name: *</label>
-                        <Input id="name" placeholder="type the image's name" style='w-68' onChange={formik.handleChange}/>
+                        <Input id="name" placeholder="type the image's name" style='w-68' onChange={formik.handleChange} value={formik.values.name}/>
                     </div>
                      <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Tags: *</label>
-                        <Input id='tags' placeholder='type the tags comma separated' style='w-68' onChange={formik.handleChange}/>
+                        <Input id='tags' placeholder='type the tags comma separated' style='w-68' onChange={formik.handleChange} value={formik.values.tags}/>
                     </div>
                      <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Image: *</label>
