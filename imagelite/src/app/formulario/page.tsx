@@ -1,17 +1,11 @@
 'use client'
 import {Button, Input, Template, RenderIf, useNotification} from '@/components'
-import Link from 'next/link'
+import { FormProps, formScheme, formValidationScheme } from './formScheme'
 import { useFormik } from 'formik'
 import React, { useState } from 'react';
 import { useImageService } from '@/resources/image/image.service'
+import Link from 'next/link'
 
-interface FormProps {
-    name: string;
-    tags: string;
-    file: any;
-}
-
-const formScheme: FormProps = {name: '', tags: '', file: ''}
 const notification = useNotification();
 
 export default function FormularioPage() {
@@ -23,7 +17,8 @@ export default function FormularioPage() {
 
     const formik = useFormik<FormProps>({
         initialValues: formScheme,
-        onSubmit : handleSubmit
+        onSubmit : handleSubmit,
+        validationSchema: formValidationScheme
         //onSubmit: (dados: FormProps) => {
           //  console.log(dados)
         //}
@@ -60,13 +55,16 @@ export default function FormularioPage() {
                     <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Name: *</label>
                         <Input id="name" placeholder="type the image's name" style='w-68' onChange={formik.handleChange} value={formik.values.name}/>
+                        <span className='text-red-600'>{formik.errors.name}</span>
                     </div>
                      <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Tags: *</label>
                         <Input id='tags' placeholder='type the tags comma separated' style='w-68' onChange={formik.handleChange} value={formik.values.tags}/>
+                        <span className='text-red-600'>{formik.errors.tags}</span>
                     </div>
                      <div className='grid grid-cols-1'>
                         <label className='block text-sm font-medium leading-9'>Image: *</label>
+                        <span className='text-red-600'>{formik.errors.file}</span>
                         <div className='mt-2 justify-center rounded-lg border border-dashed border-gray-900/25 px-6 py-10 grid grid-cols-1 text-center'>
                             <RenderIf condition={!imagePreview}>
                                 <svg className="mx-auto h-12 w-12 text-gray-300" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">

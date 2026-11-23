@@ -5,4 +5,4 @@ docker compose down
 ### verificar porta banco
 sudo lsof -i :5432
 ### derrubar porta
-sudo kill <PID>
+sudo kill \<PID\>
