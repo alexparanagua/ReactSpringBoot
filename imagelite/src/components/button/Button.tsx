@@ -5,10 +5,11 @@ interface ButtonProps {
     label?: string;
     onClick?: (event:any) => void;
     type?: "submit" | "button" | "reset" | undefined
+    style?: string
 }
-export const Button: React.FC<ButtonProps> = ({color, label, onClick, type = "button"} : ButtonProps) => {
+export const Button: React.FC<ButtonProps> = ({color, label, onClick, type = "button", style = ''} : ButtonProps) => {
     return (
-        <button className={`${color} text-white px-4 py-2 rounded-lg border hover:bg-gray-500`} onClick={onClick}>
+        <button className={`${color} text-white px-4 py-2 rounded-lg border hover:bg-gray-500 ${style}`} onClick={onClick}>
             {label}
         </button>
     )
