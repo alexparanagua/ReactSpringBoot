@@ -3,7 +3,7 @@
 import { ToastContainer } from 'react-toastify';
 
 interface TemplateProps {
-  children: React.ReactNode;
+  children?: React.ReactNode;
   loading?:boolean;
 }
 
@@ -27,7 +27,7 @@ export const Template: React.FC<TemplateProps> = (props: TemplateProps) => {
 
 interface RenderIfProps {
     condition?: boolean;
-    children: React.ReactNode;
+    children?: React.ReactNode;
 }
 
 export const RenderIf: React.FC<RenderIfProps> = ({condition=false, children}) => {
