@@ -1,6 +1,6 @@
 export { Template, RenderIf } from './Template'
 export { ImageCard } from './ImageCard'
 export { Button } from './button'
-export { Input } from './input'
+export { Input, FieldError } from './input'
 export { Select, type SelectOption } from './select'
 export { useNotification } from './notification'
