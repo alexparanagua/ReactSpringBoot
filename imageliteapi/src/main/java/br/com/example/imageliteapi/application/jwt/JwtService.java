@@ -24,7 +24,7 @@ public class JwtService {
         var expirationDate = generateExpirationDate();
         var claims = gererateTokenClaims(user);
         String token = Jwts.builder().signWith(key).subject(user.getEmail()).expiration(expirationDate).claims(claims).compact();
-        return new AccessToken("");
+        return new AccessToken(token);
     }
 
     private Date generateExpirationDate(){
