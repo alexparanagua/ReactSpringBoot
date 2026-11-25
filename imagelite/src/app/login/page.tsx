@@ -1,11 +1,23 @@
 'use client'
 
-import { Template, RenderIf, Input, Button } from "@/components"
+import { Template, RenderIf, Input, Button, FieldError } from "@/components"
 import { useState } from "react"
+import { LoginForm, formScheme, validationScheme } from './formScheme'
+import { useFormik } from 'formik'
 
 export default function Login(){
     const [loading, setLoading] = useState<boolean>(false);
     const [newUserState, setNewUserState] = useState<boolean>(false);
+
+    const {values,handleChange,handleSubmit,errors} = useFormik<LoginForm>({
+        initialValues: formScheme,
+        validationSchema: validationScheme,
+        onSubmit: fOnSubmit
+    })
+
+    async function fOnSubmit(values:LoginForm) {
+        console.log(values)
+    }
 
     return (
         <Template loading={loading}>
@@ -16,33 +28,37 @@ export default function Login(){
                     </h2>
                 </div>
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form className="space-y-2">
+                    <form className="space-y-2" onSubmit={handleSubmit}>
                         <RenderIf condition={newUserState}>
                             <div>
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Name:</label>
                             </div>
                             <div className="mt-2">
-                                <Input style="w-full" id="name"/>
+                                <Input style="w-full" id="name" value={values.name} onChange={handleChange}/>
+                                <FieldError error={errors.name}/>
                             </div>
                         </RenderIf>
                         <div>
                             <label className="block text-sm font-medium leading-6 text-gray-900">Email:</label>
                         </div>
-                        <div className="mt-2">
-                            <Input style="w-full" id="email"/>
+                        <div className="mt-2">value={values.email}
+                            <Input style="w-full" id="email" value={values.email} onChange={handleChange}/>
+                            <FieldError error={errors.email}/>
                         </div>
                         <div>
                             <label className="block text-sm font-medium leading-6 text-gray-900">Password:</label>
                         </div>
                         <div className="mt-2">
-                            <Input style="w-full" id="password" type="password"/>
+                            <Input style="w-full" id="password" type="password" value={values.password} onChange={handleChange}/>
+                            <FieldError error={errors.password}/>
                         </div>
                         <RenderIf condition={newUserState}>
                             <div>
                                 <label className="block text-sm font-medium leading-6 text-gray-900">Re-Password:</label>
                             </div>
                             <div className="mt-2">
-                                <Input style="w-full" id="passwordMatch" type="password"/>
+                                <Input style="w-full" id="passwordMatch" type="password" value={values.passwordMatch} onChange={handleChange}/>
+                                <FieldError error={errors.passwordMatch}/>
                             </div>
                         </RenderIf>
                         <div className="space-x-3 text-center">
