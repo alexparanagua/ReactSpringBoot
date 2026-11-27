@@ -1,6 +1,6 @@
 'use client'
 
-import { Template, ImageCard, Button, Input, Select, SelectOption, useNotification } from '@/components'
+import { Template, ImageCard, Button, Input, Select, SelectOption, useNotification, AuthenticatedPage } from '@/components'
 import { Image } from '@/resources/image/image.resource'
 import { useImageService } from '@/resources'
 import { useState } from 'react'
@@ -47,23 +47,25 @@ export default function GaleriaPage() {
   }
 
   return (
-    <Template loading={loading}>
-      <section className='flex flex-col items-center justify-center my-5'>
-        <div className='flex space-x-4'>
-          <Input value={query} onChange={event => setQuery(event.target.value)} placeholder='Ditige nome ou tag'/>
-          <Select options={formatOptions} value={extension} change={event => setExtesion(event.target.value)}/>
-          <Button label='Search' onClick={searchImage} color='bg-blue-800'/>
-          <Button label='Limpar' onClick={()=> {setQuery(''); setExtesion('')}} color='bg-blue-600'/>
-          <Link href="/formulario">
-            <Button label='New' onClick={()=>{}} color='bg-blue-400'/>
-          </Link>
-        </div>
-      </section>
-      <section className='grid grid-cols-4 gap-8'>
-        {
-          renderImageCards()
-        }
-      </section>
-    </Template>
+    <AuthenticatedPage>
+      <Template loading={loading}>
+        <section className='flex flex-col items-center justify-center my-5'>
+          <div className='flex space-x-4'>
+            <Input value={query} onChange={event => setQuery(event.target.value)} placeholder='Ditige nome ou tag'/>
+            <Select options={formatOptions} value={extension} change={event => setExtesion(event.target.value)}/>
+            <Button label='Search' onClick={searchImage} color='bg-blue-800'/>
+            <Button label='Limpar' onClick={()=> {setQuery(''); setExtesion('')}} color='bg-blue-600'/>
+            <Link href="/formulario">
+              <Button label='New' onClick={()=>{}} color='bg-blue-400'/>
+            </Link>
+          </div>
+        </section>
+        <section className='grid grid-cols-4 gap-8'>
+          {
+            renderImageCards()
+          }
+        </section>
+      </Template>
+    </AuthenticatedPage>
   )
 }
