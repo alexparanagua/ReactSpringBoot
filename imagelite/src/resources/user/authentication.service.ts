@@ -1,4 +1,5 @@
 import {AccessToken, Credentials, User, UserSessionToken} from './user.resource'
+import jwt from 'jwt-decode'
 
 class AuthService {
     baseURL: string = 'http://localhost:8081/v1/users';
@@ -35,6 +36,25 @@ class AuthService {
             //console.log(responseError)
             throw new Error(responseError.error);
         }
+    }
+
+    initSession(token: AccessToken) {
+        if(token.accessToken) {
+            const decodedToken: any = jwt(token.accessToken)
+            console.log("DECODED TOKEN: ",decodedToken)
+
+            const userSessionToken: UserSessionToken = {
+                accessToken: token.accessToken,
+                email: decodedToken.sub,
+                name: decodedToken.name,
+                expiration: decodedToken.exp
+            }
+            this.setUserSession(userSessionToken)
+        }
+    }
+
+    setUserSession(userSessionToken: UserSessionToken){
+        localStorage.setItem(AuthService.AUTH_PARAM, JSON.stringify(userSessionToken))
     }
 }
 
